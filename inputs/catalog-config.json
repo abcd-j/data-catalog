@@ -1,0 +1,104 @@
+{
+  "catalog_name": "ABCDJ Catalog",
+  "logo_path": "abcdj_catalog_logo.svg",
+  "link_color": "#fba304",
+  "link_hover_color": "#af7714",
+  "social_links": {
+    "about": "https://datalad.org/",
+    "documentation": "https://datalad.org/",
+    "github": "https://github.com/datalad/",
+    "x": "https://twitter.com/datalad"
+  },
+  "dataset_options": {
+    "include_metadata_export": false
+  },
+  "property_sources": {
+    "dataset": {
+      "dataset_id": {
+        "rule": "single",
+        "source": "any"
+      },
+      "dataset_version": {
+        "rule": "single",
+        "source": [
+          "metalad_core",
+          "tabby"
+        ]
+      },
+      "type": {
+        "rule": "single",
+        "source": [
+          "metalad_core",
+          "tabby"
+        ]
+      },
+      "children": {
+        "rule": "merge",
+        "source": "any"
+      },
+      "name": {
+        "rule": "priority",
+        "source": [
+          "we_cff",
+          "datacite_gin",
+          "tabby",
+          "metalad_studyminimeta",
+          "bids_dataset"
+        ]
+      },
+      "short_name": {},
+      "description": {
+        "rule": "priority",
+        "source": [
+          "we_cff",
+          "datacite_gin",
+          "tabby",
+          "metalad_studyminimeta",
+          "catalog_readme",
+          "bids_dataset"
+        ]
+      },
+      "doi": {},
+      "url": {
+        "rule": "merge",
+        "source": "any"
+      },
+      "authors": {
+        "rule": "priority",
+        "source": [
+          "we_cff",
+          "datacite_gin",
+          "metalad_studyminimeta",
+          "bids_dataset",
+          "tabby",
+          "metalad_core"
+        ]
+      },
+      "keywords": {
+        "rule": "merge",
+        "source": "any"
+      },
+      "license": {},
+      "funding": {
+        "rule": "merge",
+        "source": "any"
+      },
+      "publications": {
+        "rule": "merge",
+        "source": "any"
+      },
+      "subdatasets": {
+        "rule": "merge",
+        "source": "any"
+      },
+      "additional_display": {
+        "rule": "merge",
+        "source": "any"
+      },
+      "top_display": {
+        "rule": "merge",
+        "source": "any"
+      }
+    }
+  }
+}
