@@ -6,7 +6,7 @@
   "prov": "http://www.w3.org/ns/prov#",
   "schema": "https://schema.org/",
   "dpv": "https://w3id.org/dpv#",
-  "author": "schema:author",
+  "authors": "schema:author",
   "citation": "schema:citation",
   "data-controller": "dpv:hasDataController",
   "description": "schema:description",
