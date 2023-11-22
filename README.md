@@ -16,7 +16,8 @@
 `./docs`
 - this is where the catalog sources live
 - the github pages site build from this directory
-- created with d286c81d053a4dadf4d094a765bfc6316364c5fa
+- created with `d286c81d053a4dadf4d094a765bfc6316364c5fa`
+- recreate with: `datalad rerun d286c81d053a4dadf4d094a765bfc6316364c5fa`
 
 `./inputs`
 - input files used during catalog creation and updates
