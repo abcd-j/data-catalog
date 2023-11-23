@@ -36,9 +36,9 @@ def get_metadata(ds, tabby_path):
         source_version="0.1.0",
     )
     # note: this becomes catalog page title, so title fits better
-    meta_item["name"] = compacted.get("title")
-    meta_item["description"] = compacted.get("description")
-    meta_item["doi"] = compacted.get("doi")
+    meta_item["name"] = compacted.get("title", "")
+    meta_item["description"] = compacted.get("description", "")
+    meta_item["doi"] = compacted.get("doi", "")
     meta_item["authors"] = process_authors(compacted.get("authors"))
     meta_item["keywords"] = process_keywords(compacted.get("keywords"))
     meta_item["funding"] = process_funding(compacted.get("funding"))

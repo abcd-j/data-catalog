@@ -46,7 +46,7 @@ if __name__ == "__main__":
         # Add tabby metadata to the catalog
         catalog_add(
             catalog=catalog_dir,
-            metadata=json.dumps(core_record),
+            metadata=json.dumps(tabby_record),
             config_file = repo_path / 'inputs' / 'superds-config.json',
         )
         catalog_set(
