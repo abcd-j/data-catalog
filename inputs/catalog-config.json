@@ -1,8 +1,8 @@
 {
   "catalog_name": "ABCDJ Catalog",
   "logo_path": "abcdj_catalog_logo.svg",
-  "link_color": "#fba304",
-  "link_hover_color": "#af7714",
+  "link_color": "#151868",
+  "link_hover_color": "#3d43d7",
   "social_links": {
     "about": "https://datalad.org/",
     "documentation": "https://datalad.org/",
@@ -21,14 +21,14 @@
       "dataset_version": {
         "rule": "single",
         "source": [
-          "metalad_core",
+          "catalog_core",
           "tabby"
         ]
       },
       "type": {
         "rule": "single",
         "source": [
-          "metalad_core",
+          "catalog_core",
           "tabby"
         ]
       },
@@ -39,23 +39,14 @@
       "name": {
         "rule": "priority",
         "source": [
-          "we_cff",
-          "datacite_gin",
-          "tabby",
-          "metalad_studyminimeta",
-          "bids_dataset"
+          "tabby"
         ]
       },
       "short_name": {},
       "description": {
         "rule": "priority",
         "source": [
-          "we_cff",
-          "datacite_gin",
-          "tabby",
-          "metalad_studyminimeta",
-          "catalog_readme",
-          "bids_dataset"
+          "tabby"
         ]
       },
       "doi": {},
