@@ -201,16 +201,6 @@ const datasetView = () =>
               else {
                 disp_dataset.show_export = false
               }
-              // Additional display and definitions
-              disp_dataset.additional_tabs = dataset.additional_display
-              disp_dataset.display_tabs = []
-              disp_dataset.additional_tab_defs = dataset.additional_display_definitions
-              disp_dataset.additional_tab_count =
-                Array.isArray(disp_dataset.additional_tabs) ? disp_dataset.additional_tabs.length : 0
-              for (var t=0; t<disp_dataset.additional_tab_count; t++) {
-                n = disp_dataset.additional_tabs[t].name
-              }
-              disp_dataset.additional_tab_render = {}
               // Write main derived variable and set to ready
               this.displayData = disp_dataset;
               this.display_ready = true;
@@ -284,7 +274,8 @@ const datasetView = () =>
         },
         methods: {
           newTabActivated(newTabIndex, prevTabIndex, bvEvent) {
-            if (newTabIndex == 1) {
+            var tabs = this.selectedDataset.available_tabs
+            if (tabs[newTabIndex] == 'content') {
               this.getFiles()
             }
           },
@@ -408,7 +399,7 @@ const datasetView = () =>
                 router.push(current_route_info)
               } else {
                 this.clearFilters();
-                this.tabIndex = 0;
+                this.tabIndex = this.getDefaultTabIdx();
               }
             } else {
               if (this.currentIsHome()) {
@@ -416,7 +407,7 @@ const datasetView = () =>
                   router.push(current_route_info)
                 } else {
                   this.clearFilters();
-                  this.tabIndex = 0;
+                  this.tabIndex = this.getDefaultTabIdx();
                 }
               } else {
                 router.push({ name: "home" });
@@ -555,40 +546,37 @@ const datasetView = () =>
               }
             }
           },
-          setCorrectTab(tab_param) {
-            // the set of available tabs has been updated in component
-            // data in either created() or beforeRouteUpdate()
-            var tabs = this.$root.selectedDataset.available_tabs.map(v => v.toLowerCase());
-            // If no tab parameter is supplied via the router, set to first tab
+          setCorrectTab(tab_param, available_tabs, default_tab) {
+            // the set of available tabs have been updated in component
+            // data in either created() or beforeRouteUpdate() and have been passed
+            // as the second argument
+            default_tab = default_tab ? default_tab : "content"
+            var idx = available_tabs.indexOf(default_tab.toLowerCase())
+            var default_tab_idx = idx >= 0 ? idx : 0
+
+            // If no tab parameter is supplied via the router, set to default tab
             if (!tab_param) {
-              this.tabIndex = 0
+              this.tabIndex = default_tab_idx;
             }
             // If a tab parameter is supplied via the router, navigate to that tab if
-            // part of available tabs, otherwise first tab
+            // part of available tabs, otherwise default tab
             else {
               selectTab = tabs.indexOf(tab_param.toLowerCase())
               if (selectTab >= 0) {
                 this.tabIndex = selectTab;
               } else {
-                this.tabIndex = 0;
+                this.tabIndex = default_tab_idx;
               }
             }
           },
-          getDefinitionURL(tab, key, nested_key = null, type = 'keys') {
-            if (nested_key != null) {
-              return this.displayData.additional_tab_defs[tab][type][key][nested_key]
-            } else {
-              var value = this.displayData.additional_tab_defs[tab][type][key]
-              if (typeof value === 'object') {
-                return type == 'keys' ? value.self : value
-              } else {
-                return value
-              }
-            }
+          getDefaultTabIdx() {
+            var default_tab = this.selectedDataset.config?.dataset_options?.default_tab
+            default_tab = default_tab ? default_tab : "content"
+            var idx = this.selectedDataset.available_tabs.indexOf(default_tab.toLowerCase())
+            return idx >= 0 ? idx : 0
           },
         },
         async beforeRouteUpdate(to, from, next) {
-          this.tabIndex = 0;
           this.subdatasets_ready = false;
           this.dataset_ready = false;
 
@@ -699,7 +687,7 @@ const datasetView = () =>
           // Now list all tabs and set the correct one
           // order in DOM: subdatasets, content, publications, funding, provenance,
           sDs = this.$root.selectedDataset
-          available_tabs = ['subdatasets', 'content']
+          available_tabs = ['content', 'subdatasets']
           standard_tabs = ['publications', 'funding', 'provenance']
           // add available standard tabs
           for (var t=0; t<standard_tabs.length; t++) {
@@ -713,10 +701,24 @@ const datasetView = () =>
               available_tabs.push(sDs.additional_display[t].name)
             }
           }
-          // finally set the root data and then set the correct tab
-          this.$root.selectedDataset.available_tabs = available_tabs
+          // set the root data for available tabs
+          available_tabs_lower = available_tabs
+          this.$root.selectedDataset.available_tabs = available_tabs_lower
+          // Now get dataset config if it exists
+          dataset_config_path = metadata_dir + "/" + sDs.dataset_id + "/" + sDs.dataset_version + "/config.json";
+          configresponse = await fetch(dataset_config_path);
+          if (configresponse.status == 404) {
+            this.$root.selectedDataset.config = {};
+          } else {
+            configtext = await configresponse.text();
+            config = JSON.parse(configtext);
+            this.$root.selectedDataset.config = config;
+          }
+          // Set the correct tab to be rendered
           this.setCorrectTab(
             to.params.tab_name,
+            available_tabs_lower,
+            this.$root.selectedDataset.config?.dataset_options?.default_tab
           )
           // if navigated to using vue router (i.e. internal to the app), show the back button
           if (this.currentIsHome()) {
@@ -820,9 +822,9 @@ const datasetView = () =>
             this.$root.selectedDataset.has_files = false;
           }
           // Now list all tabs and set the correct one
-          // order in DOM: subdatasets, content, publications, funding, provenance,
+          // order in DOM: content, subdatasets, publications, funding, provenance,
           sDs = this.$root.selectedDataset
-          available_tabs = ['subdatasets', 'content']
+          available_tabs = ['content', 'subdatasets']
           standard_tabs = ['publications', 'funding', 'provenance']
           // add available standard tabs
           for (var t=0; t<standard_tabs.length; t++) {
@@ -836,10 +838,24 @@ const datasetView = () =>
               available_tabs.push(sDs.additional_display[t].name)
             }
           }
-          // finally set the root data and then set the correct tab
-          this.$root.selectedDataset.available_tabs = available_tabs
+          available_tabs_lower = available_tabs
+          // set the root data for available tabs
+          this.$root.selectedDataset.available_tabs = available_tabs_lower
+          // Now get dataset config if it exists
+          dataset_config_path = metadata_dir + "/" + sDs.dataset_id + "/" + sDs.dataset_version + "/config.json";
+          configresponse = await fetch(dataset_config_path);
+          if (configresponse.status == 404) {
+            this.$root.selectedDataset.config = {};
+          } else {
+            configtext = await configresponse.text();
+            config = JSON.parse(configtext);
+            this.$root.selectedDataset.config = config;
+          }
+          // Set the correct tab to be rendered
           this.setCorrectTab(
             this.$route.params.tab_name,
+            available_tabs_lower,
+            this.$root.selectedDataset.config?.dataset_options?.default_tab
           )
         },
         mounted() {

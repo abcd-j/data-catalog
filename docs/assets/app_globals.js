@@ -95,7 +95,3 @@ async function checkFileExists(url) {
     return false;
   }
 }
-
-function toUpperString(str_in) {
-  return str_in.charAt(0).toUpperCase() + str_in.slice(1)
-}
