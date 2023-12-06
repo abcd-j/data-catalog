@@ -16,7 +16,7 @@ def get_super_metadata(dataset):
     # then get tabby metadata
     tabby_record = get_tabby_metadata(
         tabby_path=None,
-        dataset_path=dataset,
+        dataset_path=dataset.pathobj,
         id_source='datalad_dataset')
     # return both, and dataset
     return core_record, tabby_record
@@ -66,7 +66,7 @@ if __name__ == "__main__":
         installed=True, purpose="extract core metadata", require_id=True
     )(args.dataset_path).ds
 
-    core_record, tabby_records = get_super_metadata(ds.pathobj)
+    core_record, tabby_records = get_super_metadata(ds)
     
     print(json.dumps(core_record))
     print("\n")
