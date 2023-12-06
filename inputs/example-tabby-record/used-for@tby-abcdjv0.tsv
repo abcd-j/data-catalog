@@ -1,0 +1,4 @@
+# Documentation at	https://rdm.sfb1451.de/data-catalog-submission/#table-used-for	
+# bold fields are required		
+title	url	description
+Testing effort for DBI backends	https://dbitest.r-dbi.org/	The dataset is used as example data for testing data base backend features in automated tests
