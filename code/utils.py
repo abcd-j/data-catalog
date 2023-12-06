@@ -1,4 +1,5 @@
 import uuid
+from urllib.parse import urlparse
 
 
 def mint_dataset_id(ds_name):
@@ -232,10 +233,33 @@ def process_homepage(homepage):
         return [process_homepage(hp) for hp in homepage]
     else:
         return {"@type": "https://schema.org/URL", "@value": homepage}
+    
+
+def process_subdatasets(subdatasets):
+    """Convert subdatasets to a list with items in the expected format
+
+    """
+    if subdatasets is None:
+        return []
+    if isinstance(subdatasets, list):
+        return [dict(
+            dataset_id=subds.get("identifier"),
+            dataset_version=subds.get("version"),
+            dataset_path=subds.get("path_posix"),
+            dataset_url=subds.get("url"),
+        ) for subds in subdatasets]
+    if isinstance(subdatasets, dict):
+        return [dict(
+            dataset_id=subdatasets.get("identifier"),
+            dataset_version=subdatasets.get("version"),
+            dataset_path=subdatasets.get("path_posix"),
+            dataset_url=subdatasets.get("url"),
+        )]
 
 
 CAT_CONTEXT = {
     "schema": "https://schema.org/",
+    "afo": "http://purl.allotrope.org/ontologies/result#",
     "bibo": "https://purl.org/ontology/bibo/",
     "dcterms": "https://purl.org/dc/terms/",
     "nfo": "https://www.semanticdesktop.org/ontologies/2007/03/22/nfo/#",
@@ -275,6 +299,16 @@ CAT_CONTEXT = {
             "path": "schema:name",
             "url": "schema:contentUrl",
         },
+    },
+    "subdatasets": {
+        "@id": "schema:Dataset",
+        "@context": {
+            "dataset_type": "schema:Text",
+            "identifier": "schema:identifier",
+            "path_posix": "afo:AFR_0001928",
+            "version": "schema:version",
+            "url": "schema:contentUrl"
+        }
     },
     "address": "schema:PostalAddress",
     "homepage": "schema:mainEntityOfPage",
