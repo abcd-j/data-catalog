@@ -1,3 +1,4 @@
 .DS_store
 __pycache__/
 user-docs/build
+query_cache.sqlite
