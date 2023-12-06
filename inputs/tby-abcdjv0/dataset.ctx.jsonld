@@ -22,7 +22,7 @@
   "publication": "schema:citation",
   "sample[organism]": "openminds:Species",
   "sample[organism-part]": "openminds:UBERONParcellation",
-  "subdatasets": "dcterms:hasPart",
+  "subdatasets": "schema:Dataset",
   "title": "schema:title",
   "used-for": "prov:hadUsage",
   "version": "schema:version"
