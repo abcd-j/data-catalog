@@ -185,4 +185,4 @@ if __name__ == "__main__":
                         "a path to the root element of a set of tabby files")
 
     meta_item = get_tabby_metadata(args.tabby_path, args.dataset_path, args.id_source)
-    pprint.pprint(meta_item, indent=2)
+    print(meta_item)
