@@ -24,6 +24,7 @@ if __name__ == "__main__":
         help="Is the described dataset a datalad dataset or other?"
     )
     parser.add_argument("--add-to-catalog", action="store_true")
+    
     args = parser.parse_args()
     ds = EnsureDataset(
         installed=True, purpose="get subdirectory metadata", require_id=True
@@ -69,30 +70,55 @@ if __name__ == "__main__":
     home_dataset_record = [r for r in home_tabby_record if r["type"] == "dataset"]
     assert len(home_dataset_record) == 1
     existing_subdatasets = home_dataset_record[0].get("subdatasets", [])
-    # - Now check if subdataset record is already part of the list of subdatasets
+    # - Now check if the exact subdataset record is already part of the list of subdatasets
     find_subdataset = [s for s in existing_subdatasets
                        if s["dataset_id"] == subds_id
                        and s["dataset_version"] == subds_version
                        and s["dataset_path"] == subds_path]
-    # If subdataset exists in the list:
+    # - Also check for existing subdataset (same id and path) with a prior version
+    find_subds_prior = [s for s in existing_subdatasets
+                       if s["dataset_id"] == subds_id
+                       and s["dataset_version"] != subds_version
+                       and s["dataset_path"] == subds_path]
+    # If exact subdataset exists in the list:
     # - do nothing
     # If subdataset doesn't exist in the list:
-    # - if subdatasets tabby file exists, append row
+    # - if subdatasets tabby file exists, append row or replace existing subds with different version
     # - if subdatasets tabby file does not exist, create with single row
+    fieldnames = ["dataset_type", "identifier", "version", "path_posix", "url"]
     subdatasets_tabby_path = Path(args.dataset_path) / f'.datalad/tabby/self/subdatasets@tby-abcdjv0.tsv'
     if len(find_subdataset) == 0:
         subdataset_added = True
+        # If there's no tabby file, create one and add header and then row
         if not subdatasets_tabby_path.exists():
             with subdatasets_tabby_path.open("w", encoding="utf-8", newline="") as csvfile:
-                fieldnames = ["dataset_type", "identifier", "version", "path_posix", "url"]
                 writer = csv.DictWriter(csvfile, delimiter="\t", fieldnames=fieldnames)
                 writer.writeheader()
                 writer.writerow(subdataset)
         else:
-            with subdatasets_tabby_path.open("a", encoding="utf-8", newline="") as csvfile:
-                fieldnames = ["dataset_type", "identifier", "version", "path_posix", "url"]
-                writer = csv.DictWriter(csvfile, delimiter="\t", fieldnames=fieldnames)
-                writer.writerow(subdataset)
+            # If there IS a tabby file, first read all rows
+            with subdatasets_tabby_path.open("r") as csvfile_in:
+                all_rows = []
+                for row in csv.DictReader(csvfile_in, delimiter="\t"):
+                    all_rows.append(row)
+                # then check if the same subdataset with different version is already in the list
+                prior_subds_i = next((i for i, item in enumerate(all_rows)
+                                    if item["identifier"] == subds_id
+                                    and item["version"] != subds_version
+                                    and item["path_posix"] == subds_path
+                                    ), -1)
+                if prior_subds_i > -1:
+                    # If in the list, replace previous subdataset entry with new version
+                    all_rows[prior_subds_i] = subdataset
+                else:
+                    # If not in the list, append the new subdataset
+                    all_rows.append(subdataset)
+            # Then write the updated list to file
+            with subdatasets_tabby_path.open("w", encoding="utf-8", newline="") as csvfile_out:
+                writer = csv.DictWriter(csvfile_out, delimiter="\t", fieldnames=fieldnames)
+                writer.writeheader()
+                for r in all_rows:
+                    writer.writerow(r)
     else:
         subdataset_added = False   
     # 4. Save the datalad superdataset after updating the tabby files
