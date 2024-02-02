@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'ABCDJ'
+project = 'ABCD-J'
 copyright = '2023, Psychoinformatics Group, INM-7, FZJ'
 author = 'Psychoinformatics Group, INM-7, FZJ'
 

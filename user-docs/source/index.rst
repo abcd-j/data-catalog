@@ -1,14 +1,19 @@
-.. ABCDJ documentation master file, created by
-   sphinx-quickstart on Wed Nov 15 22:37:28 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+The ABCD-J data catalog docs
+============================
 
-Welcome to ABCDJ's documentation!
-=================================
+.. image:: /_static/abcdj_catalog_logo.svg
+   :alt: abcdj-logo
+   :align: center
+
+This documentation describes the ABCD-J data catalog
+and provides you with step-wise instructions on how you can contribute data to the catalog.
+
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+
+   overview
+   instructions
 
 
 
