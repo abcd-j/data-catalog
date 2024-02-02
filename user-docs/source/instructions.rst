@@ -56,7 +56,7 @@ The metadata categories (i.e. sheet names) are:
 * ``used-for`` - the purpose of the dataset
 
 
-While the ``dataset``, ``data-controller``, ``authors``, ``funding`` categories are all
+While only the ``dataset``, ``data-controller``, ``authors``, ``funding`` categories are
 required to be completed, we recommend completing as many categories and properties as
 possible in order to generate a more comprehensive record that enhances the display and 
 accessibility of the dataset in the catalog.
