@@ -10,7 +10,9 @@ What is a data catalog?
 =======================
 
 A data catalog is a website that displays and organises information that you provide about your 
-collected datasets.
+collected datasets. Have a look at the `ABCD-J data catalog`_.
+
+.. _ABCD-J data catalog: https://data.abcd-j.de/
 
 Why should you contribute to the ABCD-J data catalog?
 =====================================================

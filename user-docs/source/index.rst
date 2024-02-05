@@ -5,12 +5,13 @@ The ABCD-J data catalog docs
    :alt: abcdj-logo
    :align: center
 
-This documentation describes the ABCD-J data catalog
-and provides you with step-wise instructions on how you can contribute data to the catalog.
+This documentation describes the `ABCD-J data catalog`_ and provides you
+with step-wise instructions on how you can contribute data to the catalog.
 
+.. _ABCD-J data catalog: https://data.abcd-j.de/
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    overview
    instructions
