@@ -15,9 +15,9 @@
 `./code`
 - location for scripts to be used for catalog updates
 
-`./docs`
+`./catalog`
 - this is where the catalog sources live
-- the github pages site build from this directory
+- the live catalog site serves this directory
 - created with `eb3ce6e19ef4e69cbd853d04ba916a32525c804a`
 
 `./inputs`
