@@ -56,7 +56,7 @@ The metadata categories (i.e. sheet names) are:
 * ``used-for`` - the purpose of the dataset
 
 
-While only the ``dataset``, ``data-controller``, ``authors``, ``funding`` categories are
+While only the ``dataset``, ``data-controller``, ``authors``, and ``funding`` categories are
 required to be completed, we recommend completing as many categories and properties as
 possible in order to generate a more comprehensive record that enhances the display and 
 accessibility of the dataset in the catalog.
@@ -80,7 +80,7 @@ in the second column (and possibly in the following columns). Recognized propert
     
     The ``name`` identifies the dataset uniquely within the ABCD-J project,
     and within the data catalog, i.e. there must not be different datasets
-    of the same name. The name should be suitable for a directory/folder name.
+    with the same name. The name should be suitable for a directory/folder name.
     Spaces and special characters should be avoided. 
     
 .. note:: 
@@ -186,7 +186,7 @@ Property names are given in the first non-comment row, and values for each entit
 
 type
 
-    The type of entity described in a column. Either Person, or Organization.
+    The type of data controller (either Person, or Organization).
 
 address
 
@@ -217,8 +217,8 @@ orcid
 
 affiliation
     
-    One or more names of organizations or institutions an author is affiliated with. Affiliations are free-form.
-    Multiple affiliations can be given by entering additional affiliations in new columns of te same row.
+    One or more names of organizations or institutions an author is affiliated with. Affiliations are free-form text.
+    Multiple affiliations can be given by entering additional affiliations in new columns of the same row.
 
 
 ``funding`` (required)
@@ -255,7 +255,7 @@ Property names are given in the first non-comment row, and values for each entit
 
 **citation (required, but optional if doi is specified)**
 
-    A free-form text citation for the publication that enables the publication record to be displayed on catalog page.
+    A free-form text citation for the publication that enables the publication record to be displayed on the catalog page.
     All citations in a metadata record should use a common, and homogeneous format.
 
 doi
@@ -333,27 +333,28 @@ description
 Step 4 - Share the metadata!
 ============================
 
-Once you have completed all the **required** (and ideally optional) metadata categories and properties,
+Once you have completed all the **required** (and ideally also the optional) metadata categories and properties,
 your metadata document with its completed sheets will be almost ready to share. Please follow these steps:
 
 Name the document
 -----------------
 
 Rename your document to use the following format: ``<partner-code>_<dataset-title>``.
-The ``partner-code`` should be ``A``, ``B``, ``C``, ``D``, or ``J`` (for Aachen, Bonn,
-Cologne, Düsseldorf, Jülich), and the ``dataset-title`` should be the same as the ``title``
-metadata property completed in the ``dataset`` category/sheet. Please use dashes (``-``) to
-separate words in the title (no spaces). For example, if a dataset titled "Movies in the scanner"
-was collected at Research Center Jülich, the metadata document name should be ``J_Movies-in-the-scanner``.
+
+- The ``partner-code`` should be ``A``, ``B``, ``C``, ``D``, or ``J`` (for Aachen, Bonn, Cologne, Düsseldorf, Jülich).
+- The ``dataset-title`` should be the same as the ``title`` metadata property completed in the ``dataset`` category/sheet.
+- Please use dashes (``-``) to separate words in the title (no spaces). 
+
+For example, if a dataset titled "Movies in the scanner" was collected at Research Center Jülich, the metadata document name should be ``J_Movies-in-the-scanner``.
 
 Share the document
 ------------------
 
 You can share the document in several ways:
 
-- Send an Excel document (``.xlsx``) as an attachment via email
-- Upload an Excel document to your sharing service of choice and provide a download link
-- Upload an Excel document to Google Sheets and provide an access link
-- Provide an access link to a Google Sheets document
+- Send an Excel document (``.xlsx``) as an attachment via email.
+- Upload an Excel document to your sharing service of choice and provide a download link.
+- Upload an Excel document to Google Sheets and provide an access link.
+- Provide an access link to a Google Sheets document.
 
 Please direct all email communication to the ABCD-J support team at ``t.heunis@fz-juelich.de``.

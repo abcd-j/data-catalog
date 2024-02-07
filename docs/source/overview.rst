@@ -18,7 +18,7 @@ Why should you contribute to the ABCD-J data catalog?
 =====================================================
 
 The purpose of this catalog is to encourage collaboration between partner sites. If all ABCD-J partners 
-between Aachen (A), Bönn (B), Cologne (C), Düsseldorf (D), and Jülich (J) share a common data catalog 
+between Aachen (A), Bonn (B), Cologne (C), Düsseldorf (D), and Jülich (J) share a common data catalog 
 (the ABCD-J catalog) which showcases their respective collected datasets, partners can more easily engage 
 in potential collaborations with each other as they can see what data has already been collected at each 
 site.
