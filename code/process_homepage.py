@@ -28,7 +28,7 @@ def add_super_to_catalog(core_record, tabby_records, ds):
         catalog_add,
         catalog_set,
     )
-    catalog_dir = repo_path / 'docs'
+    catalog_dir = repo_path / 'catalog'
     # Add core metadata to the catalog
     catalog_add(
         catalog=catalog_dir,
