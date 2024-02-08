@@ -4,10 +4,9 @@
     "link_color": "#151868",
     "link_hover_color": "#3d43d7",
     "social_links": {
-        "about": "https://datalad.org/",
-        "documentation": "https://datalad.org/",
-        "github": "https://github.com/datalad/",
-        "x": "https://twitter.com/datalad"
+        "about": "https://www.abcd-j.de/",
+        "documentation": "https://rdm.abcd-j.de/",
+        "github": "https://github.com/abcd-j/"
     },
     "dataset_options": {
         "include_metadata_export": false
