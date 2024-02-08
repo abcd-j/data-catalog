@@ -7,13 +7,13 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'ABCD-J'
-copyright = '2023, Psychoinformatics Group, INM-7, FZJ'
+copyright = '2024, Psychoinformatics Group, INM-7, FZJ'
 author = 'Psychoinformatics Group, INM-7, FZJ'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = ["sphinx.ext.githubpages"]
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -25,3 +25,4 @@ exclude_patterns = []
 
 html_theme = 'sphinx_book_theme'
 html_static_path = ['_static']
+html_baseurl = 'https://rdm.abcd-j.de'
