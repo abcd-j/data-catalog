@@ -151,7 +151,11 @@ def get_tabby_metadata(tabby_path, dataset_path=None, id_source='tabby_mint', co
     )
     # make a list of catalog-conforming dicts
     cat_file_listing = []
-    for file_info in compacted.get("fileList", []):
+    all_files = compacted.get('fileList', [])
+    if not isinstance(all_files, list):
+        all_files = [all_files]
+    
+    for file_info in all_files:
         cat_file = file_required_meta | process_file(file_info)
         cat_file_listing.append(cat_file)
     
