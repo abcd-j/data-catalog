@@ -15,12 +15,12 @@ For more information about the ABCD-J project, visit the website at: https://www
 2. [Requirements](#requirements)
 3. [Design](#design)
 4. [How to update the catalog](#how-to-update-the-catalog)
-   1. [(Re)create the catalog]()
-   2. [(Re)add the homepage metadata]()
-   3. [Collecting new dataset metadata]()
-   4. [Add new dataset metadata to the `data` superdataset]()
-   5. [Add a new dataset to the catalog]()
-5.[Deployment]()
+   1. [(Re)create the catalog](#recreate-the-catalog)
+   2. [(Re)add the homepage metadata](#readd-the-homepage-metadata)
+   3. [Collecting new dataset metadata](#collecting-new-dataset-metadata)
+   4. [Add new dataset metadata to the `data` superdataset](#add-new-dataset-metadata-to-the-data-superdataset)
+   5. [Add a new dataset to the catalog](#add-a-new-dataset-to-the-catalog)
+5.[Deployment](#deployment)
 
 ## Repository Layout
 
