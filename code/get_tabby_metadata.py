@@ -101,6 +101,7 @@ def get_tabby_metadata(tabby_path, dataset_path=None, id_source='tabby_mint', co
     meta_item["publications"] = process_publications(compacted.get("publications"))
     meta_item["access_request_contact"] = process_arc(compacted.get("dataController"))
     meta_item["subdatasets"] = process_subdatasets(compacted.get("subdatasets"))
+    meta_item["url"] = compacted.get("homepage", None)
     # add 'additional display' properties
     # note: to avoid having to do fancy expansion tricks in the catalog to show IRIs
     # as functioning links, we are providing context explicitly here
