@@ -156,6 +156,13 @@ const datasetView = () =>
                 }
               } else {
                 disp_dataset.url = dataset.url;
+                if (disp_dataset.url && dataset.url.toLowerCase().indexOf("gin.g-node") >= 0) {
+                  disp_dataset.is_gin = true;
+                  disp_dataset.url = disp_dataset.url.replace('ssh://', '');
+                  disp_dataset.url = disp_dataset.url.replace('git@gin.g-node.org:', 'https://gin.g-node.org');
+                  disp_dataset.url = disp_dataset.url.replace('git@gin.g-node.org', 'https://gin.g-node.org');
+                  disp_dataset.url = disp_dataset.url.replace('.git', '');
+                }
               }
               // Description
               if (
@@ -200,6 +207,27 @@ const datasetView = () =>
               else {
                 disp_dataset.show_export = false
               }
+
+              if (dataset.config?.hasOwnProperty("dataset_options")) {
+                console.log("dataset.config?.hasOwnProperty(dataset_options)")
+              }
+
+              if (dataset.config.dataset_options.hasOwnProperty("include_access_request")) {
+                console.log("dataset.config.dataset_options.hasOwnProperty(include_access_request)")
+              }
+
+              if (dataset.config?.hasOwnProperty("dataset_options") && dataset.config.dataset_options.hasOwnProperty("include_access_request")) {
+                console.log("Picked up access request property in config")
+                disp_dataset.show_access_request = dataset.config.dataset_options.include_access_request
+                console.log(disp_dataset.show_access_request)
+              }
+              else {
+                // default should be to display the access request button, if access request contact/url are included
+                disp_dataset.show_access_request = true
+              }
+              console.log("dispData.show_access_request:")
+              console.log(disp_dataset.show_access_request)
+
               // Write main derived variable and set to ready
               this.displayData = disp_dataset;
               this.display_ready = true;
@@ -624,7 +652,7 @@ const datasetView = () =>
           this.$root.selectedDataset.keywords = this.$root.selectedDataset.keywords
             ? this.$root.selectedDataset.keywords
             : [];
-          this.dataset_ready = true;
+          
 
           if (
             this.$root.selectedDataset.hasOwnProperty("subdatasets") &&
@@ -734,6 +762,7 @@ const datasetView = () =>
             configtext = await configresponse.text();
             config = JSON.parse(configtext);
             this.$root.selectedDataset.config = config;
+            console.log("Loaded dataset config on route update")
           }
           // Set the correct tab to be rendered
           this.setCorrectTab(
@@ -747,6 +776,7 @@ const datasetView = () =>
           } else {
             this.$root.selectedDataset.show_backbutton = true
           }
+          this.dataset_ready = true;
           next();
         },
         async created() {
@@ -778,7 +808,6 @@ const datasetView = () =>
           }
           text = await response.text();
           app.selectedDataset = JSON.parse(text);
-          this.dataset_ready = true;
           if (
             this.$root.selectedDataset.hasOwnProperty("subdatasets") &&
             this.$root.selectedDataset.subdatasets instanceof Array &&
@@ -871,6 +900,7 @@ const datasetView = () =>
             configtext = await configresponse.text();
             config = JSON.parse(configtext);
             this.$root.selectedDataset.config = config;
+            console.log("Loaded dataset config on create")
           }
           // Set the correct tab to be rendered
           this.setCorrectTab(
@@ -878,6 +908,7 @@ const datasetView = () =>
             available_tabs_lower,
             this.$root.selectedDataset.config?.dataset_options?.default_tab
           )
+          this.dataset_ready = true;
         },
         mounted() {
           this.tag_options_filtered = this.tag_options;
