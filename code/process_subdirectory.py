@@ -24,6 +24,7 @@ if __name__ == "__main__":
         help="Is the described dataset a datalad dataset or other?"
     )
     parser.add_argument("--add-to-catalog", action="store_true")
+    parser.add_argument("--hide-access-request", action="store_true")
     
     args = parser.parse_args()
     ds = EnsureDataset(
@@ -149,11 +150,14 @@ if __name__ == "__main__":
                 config_file = repo_path / 'inputs' / 'superds-config.json',
             )
         # Add subdataset tabby metadata to the catalog
+        cfg_fname = 'subds-config.json'
+        if args.hide_access_request:
+            cfg_fname = 'subds-config-hide-access-request.json'
         for r in subds_tabby_records:
             catalog_add(
                 catalog=catalog_dir,
                 metadata=json.dumps(r),
-                config_file = repo_path / 'inputs' / 'subds-config.json',
+                config_file = repo_path / 'inputs' / cfg_fname,
             )
         # 7. Set new catalog homepage (if specified via 'add_to_catalog' argument)
         catalog_set(
