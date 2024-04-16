@@ -58,8 +58,11 @@ if __name__ == "__main__":
         "identifier": subds_id,
         "version": subds_version,
         "path_posix": subds_path,
-        "url": subds_url,
     }
+    # Only include URL if it is a datalad dataset
+    if args.dataset_type == "datalad":
+        subdataset["url"] = subds_url
+
     # 3. Now add subdataset record to the superdataset tabby file at
     #    '<superdataset>.datalad/tabby/self/subdatasets@tby-abcdjv0.tsv'
     # - First get the home page tabby record
