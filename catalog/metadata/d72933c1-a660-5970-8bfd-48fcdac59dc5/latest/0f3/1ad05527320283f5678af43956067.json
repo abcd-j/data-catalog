@@ -4,6 +4,28 @@
     "dataset_version": "latest",
     "children": [
         {
+            "type": "file",
+            "dataset_id": "d72933c1-a660-5970-8bfd-48fcdac59dc5",
+            "dataset_version": "latest",
+            "metadata_sources": {
+                "key_source_map": {},
+                "sources": [
+                    {
+                        "source_name": "tabby",
+                        "source_version": "0.1.0",
+                        "source_parameter": {},
+                        "source_time": 1713196243.176473,
+                        "agent_name": "Tosca Heunis",
+                        "agent_email": "t.heunis@fz-juelich.de"
+                    }
+                ]
+            },
+            "path": "GSE167274_RAW.tar",
+            "contentbytesize": 42854400,
+            "url": "https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE167274&format=file",
+            "name": "GSE167274_RAW.tar"
+        },
+        {
             "type": "directory",
             "name": "GSE167274_RAW",
             "path": "GSE167274_RAW",
