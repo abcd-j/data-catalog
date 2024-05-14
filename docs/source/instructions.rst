@@ -278,8 +278,9 @@ date
 ---------
 
 .. important::
-    For help with generating automatic filelists for your dataset,
-    please contact the ABCD-J support team at ``t.heunis@fz-juelich.de``.
+    For help with generating automatic filelists for your dataset, please see
+    the secion: :doc:`for_maintainers`. For further assistance, contact the ABCD-J
+    support team at ``t.heunis@fz-juelich.de``.
 
 This category lists one or more files that form part of the dataset.
 

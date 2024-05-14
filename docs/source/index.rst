@@ -15,6 +15,7 @@ with step-wise instructions on how you can contribute data to the catalog.
 
    overview
    instructions
+   for_maintainers
 
 
 
