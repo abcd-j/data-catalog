@@ -1,0 +1,1 @@
+{"type": "directory", "dataset_id": "86d651fa-bc70-571f-ae19-a99374110de7", "dataset_version": "1.0", "children": [{"type": "directory", "name": "EBV_KSHV_IR", "path": "Immune_repertoire_sequencing/EBV_KSHV_IR", "dataset_id": "86d651fa-bc70-571f-ae19-a99374110de7", "dataset_version": "1.0"}], "path": "Immune_repertoire_sequencing", "name": "Immune_repertoire_sequencing"}
