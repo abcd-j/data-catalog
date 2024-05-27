@@ -1,0 +1,1 @@
+{"type": "directory", "dataset_id": "00d6eafd-f01d-5d24-8cfe-bbb463f0dc94", "dataset_version": "1.0", "children": [{"type": "directory", "name": "OCR_IR", "path": "Immune_repertoire_sequencing/OCR_IR", "dataset_id": "00d6eafd-f01d-5d24-8cfe-bbb463f0dc94", "dataset_version": "1.0"}], "path": "Immune_repertoire_sequencing", "name": "Immune_repertoire_sequencing"}
