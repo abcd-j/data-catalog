@@ -225,7 +225,7 @@ const datasetView = () =>
               }
               // Show / hide binder button: if disp_dataset.url exists OR if dataset has a notebook specified in metadata
               disp_dataset.show_binder_button = false
-              if ( disp_dataset.url || dataset.hasOwnProperty("notebooks") && current_dataset.notebooks.length > 0 ) {
+              if ( disp_dataset.url || disp_dataset.hasOwnProperty("notebooks") && disp_dataset.notebooks.length > 0 ) {
                 disp_dataset.show_binder_button = true
               }
 
@@ -258,16 +258,42 @@ const datasetView = () =>
                 scripttag.setAttribute("id", "structured-data");
                 document.head.appendChild(scripttag);
               }
+              keys_to_populate = [
+                  "name", // Text
+                  "description", // Text
+                  "alternateName", // Text
+                  "creator", //	Person or Organization
+                  "citation", // Text or CreativeWork
+                  "funder", // Person or Organization
+                  "hasPart", // URL or Dataset
+                  // "isPartOf", // URL or Dataset
+                  "identifier", // URL, Text, or PropertyValue
+                  // "isAccessibleForFree", // Boolean
+                  "keywords", // Text
+                  "license", // URL or CreativeWork
+                  // "measurementTechnique", // Text or URL
+                  "sameAs", // URL
+                  // "spatialCoverage", // Text or Place
+                  // "temporalCoverage", // Text
+                  // "variableMeasured", // Text or PropertyValue
+                  "version", // Text or Number
+                  // "url", // URL
+                  "includedInDataCatalog", // DataCatalog
+                  // "distribution", // DataDownload
+              ]
               obj = {
                   "@context": "https://schema.org/",
                   "@type": "Dataset",
-                  "name": this.displayData.display_name ? this.displayData.display_name : "",
-                  "description": this.selectedDataset.description ? this.selectedDataset.description : ""
               }
-              scripttag.textContent = JSON.stringify(obj);
+              for (var k=0; k<keys_to_populate.length; k++) {
+                key = keys_to_populate[k]
+                obj[key] = this.getRichData(key, dataset, disp_dataset)
+              }
+
+              scripttag.textContent = JSON.stringify(pruneObject(obj));
 
               dataset_id_path = getFilePath(this.selectedDataset.dataset_id)
-              fetch(dataset_id_path)
+              fetch(dataset_id_path, {cache: "no-cache"})
                 .then((response) => {
                   if(response.status == 404) {
                     this.selectedDataset.has_id_path = false
@@ -402,6 +428,140 @@ const datasetView = () =>
             console.debug("- After: Vue Route query params: %s", JSON.stringify(Object.assign({}, this.$route.query)))
             let url_qp2 = new URL(document.location.toString()).searchParams
             console.debug("- After: URL query string: %s", url_qp2.toString())
+          },
+          getRichData(key, selectedDS, displayDS) {
+            switch (key) {
+              case "name":
+                return displayDS.display_name ? displayDS.display_name : ""
+              case "description":
+                return selectedDS.description ? selectedDS.description : ""
+              case "alternateName":
+                // use alias if present
+                return [selectedDS.alias ? selectedDS.alias : ""]
+              case "creator":
+                // authors
+                return selectedDS.authors?.map( (auth) => {
+                  return {
+                    "@type": "Person",
+                    "givenName": auth.givenName ? auth.givenName : null,
+                    "familyName": auth.familyName ? auth.familyName : null,
+                    "name": auth.name ? auth.name : null,
+                    "sameAs": this.getAuthorORCID(auth),
+                  }
+                })
+              case "citation":
+                // from publications
+                return selectedDS.publications?.map( (pub) => {
+                  return pub.doi
+                })
+              case "funder":
+                // from funding
+                return selectedDS.funding?.map( (fund) => {
+                  var fund_obj = {
+                    "@type": "Organization",
+                    "name": fund.funder ? fund.funder : (fund.name ? fund.name : (fund.description ? fund.description : null)),
+                  }
+                  var sameas = this.getFunderSameAs(fund)
+                  if (sameas) {
+                    fund_obj["sameAs"] = sameas
+                  }
+                  return fund_obj
+                })
+              case "hasPart":
+                // from subdatasets
+                var parts = selectedDS.subdatasets?.map( (ds) => {
+                  return {
+                      "@type": "Dataset",
+                      "name": ds.dirs_from_path[ds.dirs_from_path.length - 1]
+                  }
+                })
+                return parts.length ? parts : null
+              // case "isPartOf":
+              case "identifier":
+                // use DOI
+                return selectedDS.doi ? selectedDS.doi : null
+              // "isAccessibleForFree", // Boolean
+              case "keywords":
+                return selectedDS.keywords?.length ? selectedDS.keywords : null
+              case "license":
+                return selectedDS.license?.url ? selectedDS.license.url : null
+              // "measurementTechnique", // Text or URL
+              case "sameAs":
+                // homepage
+                if (selectedDS.additional_display && selectedDS.additional_display.length) {
+                  for (var t=0; t<selectedDS.additional_display.length; t++) {
+                    var current_display = selectedDS.additional_display[t]
+                    var homepage = current_display.content?.homepage?.["@value"]
+                    if (homepage) {
+                      return homepage
+                    }
+                  }
+                } else {
+                  return null
+                }
+              // "spatialCoverage", // Text or Place
+              // "temporalCoverage", // Text
+              // "variableMeasured", // Text or PropertyValue
+              case "version":
+                return selectedDS.dataset_version
+              // "url", // URL
+              case "includedInDataCatalog":
+                var obj = {
+                  "@type":"DataCatalog",
+                  "name": this.$root.catalog_config?.catalog_name ? this.$root.catalog_config.catalog_name : null,
+                  "url": this.$root.catalog_config?.catalog_url ? this.$root.catalog_config.catalog_url : null,
+                }
+                if (obj.name == null && obj.url == null) {
+                  return null
+                } else {
+                  return obj
+                }
+              // "distribution", // DataDownload
+              default:
+                return null
+            }
+          },
+          getAuthorORCID(author) {
+            if (author.hasOwnProperty("identifiers") && author.identifiers.length > 0) {
+              orcid_element = author.identifiers.filter(
+                (x) => x.name === "ORCID"
+              );
+              if (orcid_element.length > 0) {
+                orcid_code = orcid_element[0].identifier
+                const prefix = "https://orcid.org/"
+                return orcid_code.indexOf(prefix) >= 0 ? orcid_code : prefix + orcid_code
+              } else {
+                return null
+              }
+            } else {
+              return null
+            }
+          },
+          getFunderSameAs(fund) {
+            const common_funders = [
+              {
+                "name": "Deutsche Forschungsgemeinschaft",
+                "alternate_name": "DFG",
+                "ror": "https://ror.org/018mejw64"
+              },
+              {
+                "name": "National Science Foundation",
+                "alternate_name": "NSF",
+                "ror": "https://ror.org/021nxhr62"
+              }
+            ]
+            for (var i=0; i<common_funders.length; i++) {
+              var cf = common_funders[i]
+              if (fund.funder?.indexOf(cf.name) >= 0 ||
+                  fund.name?.indexOf(cf.name) >= 0 ||
+                  fund.description?.indexOf(cf.name) >= 0 ||
+                  fund.funder?.indexOf(cf.alternate_name) >= 0 ||
+                  fund.name?.indexOf(cf.alternate_name) >= 0 ||
+                  fund.description?.indexOf(cf.alternate_name) >= 0 ) {
+                return cf.ror
+              }
+            }
+            return null
           },
           copyCloneCommand(index) {
             // https://stackoverflow.com/questions/60581285/execcommand-is-now-obsolete-whats-the-alternative
@@ -596,9 +756,9 @@ const datasetView = () =>
           openWithBinder(dataset_url, current_dataset) {
             const environment_url =
               "https://mybinder.org/v2/gh/datalad/datalad-binder/main";
-            const content_url = "https://github.com/jsheunis/datalad-notebooks";
-            const content_repo_name = "datalad-notebooks";
-            const notebook_name = "download_data_with_datalad_python.ipynb";
+            var content_url = "https://github.com/jsheunis/datalad-notebooks";
+            var content_repo_name = "datalad-notebooks";
+            var notebook_name = "download_data_with_datalad_python.ipynb";
             if (current_dataset.hasOwnProperty("notebooks") && current_dataset.notebooks.length > 0) {
               // until including the functionality to select from multiple notebooks in a dropdown, just select the first one
               notebook = current_dataset.notebooks[0]
@@ -679,7 +839,7 @@ const datasetView = () =>
             this.files_ready = false;
             file_hash = this.selectedDataset.children;
             file = metadata_dir + "/" + file_hash + ".json";
-            response = await fetch(file);
+            response = await fetch(file, {cache: "no-cache"});
             text = await response.text();
             obj = JSON.parse(text);
             this.$root.selectedDataset.tree = obj["children"];
@@ -749,7 +909,7 @@ const datasetView = () =>
           this.subdatasets_ready = false;
           this.dataset_ready = false;
           file = getFilePath(to.params.dataset_id, to.params.dataset_version, null);
-          response = await fetch(file);
+          response = await fetch(file, {cache: "no-cache"});
           text = await response.text();
           response_obj = JSON.parse(text);
           // if the object.type is redirect (i.e. the url parameter is an alias for or ID
@@ -891,7 +1051,7 @@ const datasetView = () =>
           this.$root.selectedDataset.available_tabs = available_tabs_lower
           // Now get dataset config if it exists
           dataset_config_path = metadata_dir + "/" + sDs.dataset_id + "/" + sDs.dataset_version + "/config.json";
-          configresponse = await fetch(dataset_config_path);
+          configresponse = await fetch(dataset_config_path, {cache: "no-cache"});
           if (configresponse.status == 404) {
             this.$root.selectedDataset.config = {};
           } else {
@@ -916,7 +1076,7 @@ const datasetView = () =>
           console.debug("Executing lifecycle hook: created")
           // fetch superfile in order to set id and version on $root
           homefile = metadata_dir + "/super.json";
-          homeresponse = await fetch(homefile);
+          homeresponse = await fetch(homefile, {cache: "no-cache"});
           if (homeresponse.status == 404) {
             this.$root.home_dataset_id = null;
             this.$root.home_dataset_version = null;
@@ -932,7 +1092,7 @@ const datasetView = () =>
             null
           );
           var app = this.$root;
-          response = await fetch(file);
+          response = await fetch(file, {cache: "no-cache"});
           // Reroute to 404 if the dataset file is not found
           if (response.status == 404) {
             router.push({
@@ -1046,7 +1206,7 @@ const datasetView = () =>
           this.$root.selectedDataset.available_tabs = available_tabs_lower
           // Now get dataset config if it exists
           dataset_config_path = metadata_dir + "/" + sDs.dataset_id + "/" + sDs.dataset_version + "/config.json";
-          configresponse = await fetch(dataset_config_path);
+          configresponse = await fetch(dataset_config_path, {cache: "no-cache"});
           if (configresponse.status == 404) {
             this.$root.selectedDataset.config = {};
           } else {

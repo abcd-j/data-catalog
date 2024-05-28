@@ -11,6 +11,7 @@ var datacat = new Vue({
     links: {},
     dataset_options: {},
     config_ready: false,
+    catalog_config: {},
   },
   methods: {
     gotoHome() {
@@ -25,7 +26,7 @@ var datacat = new Vue({
   },
   beforeCreate() {
     console.debug("Executing lifecycle hook: beforeCreate")
-    fetch(config_file)
+    fetch(config_file, {cache: "no-cache"})
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -45,6 +46,7 @@ var datacat = new Vue({
             obj[key] = value;
           }
         }
+        this.catalog_config = obj
         // set social links
         this.social_links = obj.social_links
         // set dataset options
