@@ -1,1 +1,0 @@
-{"type": "directory", "dataset_id": "1015ed7c-0a3d-4dfc-9c4f-11fe71673a41", "dataset_version": "3f91fe14a8841affb7084d0277410347b6f2a597", "children": [{"type": "dataset", "name": "jumax", "path": "FZJ/jumax", "dataset_id": "3f8a45c0-08fc-479c-b561-cb6f744d2b5c", "dataset_version": "32f3303308c89b037fe1700547348470539a30cb"}], "path": "FZJ", "name": "FZJ"}
