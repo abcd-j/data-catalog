@@ -1,1 +1,154 @@
-{"type": "dataset", "dataset_id": "25277dfb-826b-5378-8bec-f02c130b5613", "dataset_version": "1.0", "children": [{"type": "directory", "name": "Immune_repertoire_sequencing", "path": "Immune_repertoire_sequencing", "dataset_id": "25277dfb-826b-5378-8bec-f02c130b5613", "dataset_version": "1.0"}], "metadata_sources": {"key_source_map": {"name": ["tabby"], "description": ["tabby"], "authors": ["tabby"], "keywords": ["tabby"], "funding": ["tabby"], "publications": ["tabby"], "access_request_contact": ["tabby"], "url": ["tabby"], "additional_display": ["tabby"]}, "sources": [{"source_name": "tabby", "source_version": "0.1.0", "source_parameter": {}, "source_time": 1716847046.274842, "agent_name": "Stephan Heunis", "agent_email": "s.heunis@fz-juelich.de"}]}, "name": "Myasthenia gravis (MG)-BCR repertoire bulk-Seq dataset", "description": "The dataset contains bulk seqeuncing data of B cells (Heavy chain, lamda chain and kappa chain) from the peripheral blood mononuclear cells (PBMCs) of 12 Myasthenia gravis (MG) patients. These 12 patients are identified  as four distinct patient phenotypes based on their proteomic patterns. 3 patients consist of each subgroups which is denoted as protein signature (PS) 1 to PS4.", "authors": [{"name": "Sumanta Barman"}, {"name": "Christopher Nelke"}, {"name": "Sven G. Meuth"}, {"name": "Tobias Ruck"}], "keywords": ["Myasthenia gravis, bulk sequencing, peripheral blood"], "funding": [{"@type": "schema:Grant", "name": "Else-Kr\u00f6ner-Fresenius-Stiftung ", "identifier": "EKEA.38"}, {"@type": "schema:Grant", "name": "DFG - German Research Foundation", "identifier": "539363086.0"}, {"@type": "schema:Grant", "name": "Ministry of Culture and Science of North Rhine-Westphalia", "identifier": "PROFILNRW-2020\u2013107-A"}], "publications": [{"@type": "schema:CreativeWork", "doi": "doi", "title": "C. Nelke, C. B. Schroeter, S. Barman, F. Stascheit, L. Masanneck,  L. Theissen,  N. Huntemann, D. Cengiz, V. Dobelmann, M. Pawlitzki, S. R\u00e4uber, H. P. Hartung, S. K\u00f6nig, A. Roos, A. Meisel, Sven G. Meuth, T. Ruck, Proteomics-based consensus clustering identifies distinct disease phenotypes in myasthenia gravis.", "authors": []}], "access_request_contact": {"givenName": "Sumanta", "familyName": "Barman", "email": "Sumanta.Barman@med.uni-duesseldorf.de"}, "url": "https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA1012710", "additional_display": [{"name": "ABCD-J", "icon": "fa-solid fa-graduation-cap", "content": {"@context": {"homepage": "https://schema.org/mainEntityOfPage", "data controller": "https://w3id.org/dpv#hasDataController", "sample (organism)": "https://openminds.ebrains.eu/controlledTerms/Species", "sample (organism part)": "https://openminds.ebrains.eu/controlledTerms/UBERONParcellation", "used for": "http://www.w3.org/ns/prov#hadUsage"}, "sample (organism)": "NCBI:9606", "sample (organism part)": "NCIT_C12954", "homepage": {"@type": "https://schema.org/URL", "@value": "https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA1012710"}, "data controller": [{"@type": "https://schema.org/Person", "email": "Sumanta.Barman@med.uni-duesseldorf.de", "name": "Sumanta Barman"}, {"@type": "https://schema.org/Person", "email": "ChristopherJannik.Nelke@med.uni-duesseldorf.de", "name": "Christopher Nelke"}], "used for": {"@type": "https://schema.org/Thing", "name": "Immunogenomic analysis of the B cell receptor repertoire "}}}]}
+{
+    "type": "dataset",
+    "dataset_id": "25277dfb-826b-5378-8bec-f02c130b5613",
+    "dataset_version": "1.0",
+    "children": [
+        {
+            "type": "directory",
+            "name": "Immune_repertoire_sequencing",
+            "path": "Immune_repertoire_sequencing",
+            "dataset_id": "25277dfb-826b-5378-8bec-f02c130b5613",
+            "dataset_version": "1.0"
+        }
+    ],
+    "metadata_sources": {
+        "key_source_map": {
+            "name": [
+                "tabby"
+            ],
+            "description": [
+                "tabby"
+            ],
+            "authors": [
+                "tabby"
+            ],
+            "keywords": [
+                "tabby"
+            ],
+            "funding": [
+                "tabby"
+            ],
+            "publications": [
+                "tabby"
+            ],
+            "access_request_contact": [
+                "tabby"
+            ],
+            "url": [
+                "tabby"
+            ],
+            "additional_display": [
+                "tabby"
+            ]
+        },
+        "sources": [
+            {
+                "source_name": "tabby",
+                "source_version": "0.1.0",
+                "source_parameter": {},
+                "source_time": 1716847046.274842,
+                "agent_name": "Stephan Heunis",
+                "agent_email": "s.heunis@fz-juelich.de"
+            }
+        ]
+    },
+    "name": "Myasthenia gravis (MG)-BCR repertoire bulk-Seq dataset",
+    "description": "The dataset contains bulk seqeuncing data of B cells (Heavy chain, lamda chain and kappa chain) from the peripheral blood mononuclear cells (PBMCs) of 12 Myasthenia gravis (MG) patients. These 12 patients are identified  as four distinct patient phenotypes based on their proteomic patterns. 3 patients consist of each subgroups which is denoted as protein signature (PS) 1 to PS4.",
+    "authors": [
+        {
+            "name": "Sumanta Barman"
+        },
+        {
+            "name": "Christopher Nelke"
+        },
+        {
+            "name": "Sven G. Meuth"
+        },
+        {
+            "name": "Tobias Ruck"
+        }
+    ],
+    "keywords": [
+        "Myasthenia gravis",
+        "bulk sequencing",
+        "peripheral blood"
+    ],
+    "funding": [
+        {
+            "@type": "schema:Grant",
+            "name": "Else-Kr\u00f6ner-Fresenius-Stiftung ",
+            "identifier": "EKEA.38"
+        },
+        {
+            "@type": "schema:Grant",
+            "name": "DFG - German Research Foundation",
+            "identifier": "539363086.0"
+        },
+        {
+            "@type": "schema:Grant",
+            "name": "Ministry of Culture and Science of North Rhine-Westphalia",
+            "identifier": "PROFILNRW-2020\u2013107-A"
+        }
+    ],
+    "publications": [
+        {
+            "@type": "schema:CreativeWork",
+            "doi": "",
+            "title": "C. Nelke, C. B. Schroeter, S. Barman, F. Stascheit, L. Masanneck,  L. Theissen,  N. Huntemann, D. Cengiz, V. Dobelmann, M. Pawlitzki, S. R\u00e4uber, H. P. Hartung, S. K\u00f6nig, A. Roos, A. Meisel, Sven G. Meuth, T. Ruck, Proteomics-based consensus clustering identifies distinct disease phenotypes in myasthenia gravis.",
+            "authors": []
+        }
+    ],
+    "access_request_contact": {
+        "givenName": "Sumanta",
+        "familyName": "Barman",
+        "email": "Sumanta.Barman@med.uni-duesseldorf.de"
+    },
+    "url": "",
+    "additional_display": [
+        {
+            "name": "ABCD-J",
+            "icon": "fa-solid fa-graduation-cap",
+            "content": {
+                "@context": {
+                    "homepage": "https://schema.org/mainEntityOfPage",
+                    "data controller": "https://w3id.org/dpv#hasDataController",
+                    "sample (organism)": "https://openminds.ebrains.eu/controlledTerms/Species",
+                    "sample (organism part)": "https://openminds.ebrains.eu/controlledTerms/CellType",
+                    "used for": "http://www.w3.org/ns/prov#hadUsage"
+                },
+                "sample (organism)": {
+                    "@type": "https://openminds.ebrains.eu/controlledTerms/Species",
+                    "name": "Homo sapiens",
+                    "preferredOntologyIdentifier": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
+                    "synonym": "human"
+                },
+                "sample (organism part)": {
+                    "@type": "https://openminds.ebrains.eu/controlledTerms/CellType",
+                    "name": "Peripheral Blood Mononuclear Cell",
+                    "preferredOntologyIdentifier": "http://purl.obolibrary.org/obo/NCIT_C12954",
+                    "synonym": "PBMC"
+                },
+                "homepage": {
+                    "@type": "https://schema.org/URL",
+                    "@value": "https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA1012710"
+                },
+                "data controller": [
+                    {
+                        "@type": "https://schema.org/Person",
+                        "email": "Sumanta.Barman@med.uni-duesseldorf.de",
+                        "name": "Sumanta Barman"
+                    },
+                    {
+                        "@type": "https://schema.org/Person",
+                        "email": "ChristopherJannik.Nelke@med.uni-duesseldorf.de",
+                        "name": "Christopher Nelke"
+                    }
+                ],
+                "used for": {
+                    "@type": "https://schema.org/Thing",
+                    "name": "Immunogenomic analysis of the B cell receptor repertoire "
+                }
+            }
+        }
+    ]
+}
