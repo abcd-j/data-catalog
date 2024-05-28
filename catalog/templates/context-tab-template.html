@@ -49,6 +49,10 @@
           <template v-else-if="val?.['@type'] == 'https://openminds.ebrains.eu/controlledTerms/Species'">
             <a :href="val.preferredOntologyIdentifier">{{val.name}} ({{val?.synonym}})</a><br>
           </template>
+          <!-- OpenMINDS Species -->
+          <template v-else-if="val?.['@type'] == 'https://openminds.ebrains.eu/controlledTerms/CellType'">
+            <a :href="val.preferredOntologyIdentifier">{{val.name}} ({{val?.synonym}})</a><br>
+          </template>
           <!-- OpenMINDS UBERONParcellation -->
           <template v-else-if="val?.['@type'] == 'https://openminds.ebrains.eu/controlledTerms/UBERONParcellation'">
             <a :href="val.preferredOntologyIdentifier">{{val.name}}</a><br>
