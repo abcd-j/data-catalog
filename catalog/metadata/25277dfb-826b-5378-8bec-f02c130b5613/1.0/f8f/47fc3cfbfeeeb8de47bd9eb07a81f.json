@@ -1,1 +1,0 @@
-{"type": "directory", "dataset_id": "25277dfb-826b-5378-8bec-f02c130b5613", "dataset_version": "1.0", "children": [{"type": "directory", "name": "MG_BCR", "path": "Immune_repertoire_sequencing/MG_BCR", "dataset_id": "25277dfb-826b-5378-8bec-f02c130b5613", "dataset_version": "1.0"}], "path": "Immune_repertoire_sequencing", "name": "Immune_repertoire_sequencing"}
