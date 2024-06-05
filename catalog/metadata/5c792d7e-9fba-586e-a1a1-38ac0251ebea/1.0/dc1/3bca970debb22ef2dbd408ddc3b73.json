@@ -1,1 +1,137 @@
-{"type": "dataset", "dataset_id": "5c792d7e-9fba-586e-a1a1-38ac0251ebea", "dataset_version": "1.0", "children": [{"type": "directory", "name": "Immune_repertoire_sequencing", "path": "Immune_repertoire_sequencing", "dataset_id": "5c792d7e-9fba-586e-a1a1-38ac0251ebea", "dataset_version": "1.0"}, {"type": "directory", "name": "FTY_IR", "path": "FTY_IR", "dataset_id": "5c792d7e-9fba-586e-a1a1-38ac0251ebea", "dataset_version": "1.0"}], "metadata_sources": {"key_source_map": {"name": ["tabby"], "description": ["tabby"], "authors": ["tabby"], "keywords": ["tabby"], "funding": ["tabby"], "access_request_contact": ["tabby"], "additional_display": ["tabby"], "alias": ["automated_alias_entry"]}, "sources": [{"source_name": "tabby", "source_version": "0.1.0", "source_parameter": {}, "source_time": 1716847086.688586, "agent_name": "Stephan Heunis", "agent_email": "s.heunis@fz-juelich.de"}, {"source_name": "automated_alias_entry", "source_version": "0.1.0", "source_parameter": {}, "source_time": 1716886792.988671, "agent_name": "Stephan Heunis", "agent_email": "s.heunis@fz-juelich.de"}]}, "name": "FTY720-Multiple Sclerosis (MS)-immune repertoire bulk-Seq dataset", "description": "The dataset contains longitudinal bulk sequencing data of FACS sorted  T cells (CD3+CD4+, CD3+CD8+, CD3+CD4+CCR7+, CD3+CD4+CCR7-, CD3+CD8+CCR7+, CD3+CD8+CCR7-) from peripheral blood mononuclear cells (PBMCs) of 4 Multiple Sclerosis (MS) patients  treated with fingolimod (FTY720) compared to  2 untreated controls.  For treated patients TP1: Baseline; TP2: 6-12 months. For untreated controls TP1: m1; TP2: 6-12 months", "authors": [{"name": "Sumanta Barman"}, {"name": "Armin Scheffler"}, {"name": "Anna Coordt"}, {"name": "Pia Sporkmann"}, {"name": "Sven G Meuth"}, {"name": "Norbert Goebels"}], "keywords": ["Multiple Sclerosis", "bulk sequencing", "peripheral blood", "fingolimod"], "funding": [{"@type": "schema:Grant", "name": "Novartis", "identifier": "MFTY720_FVTK011"}], "access_request_contact": {"givenName": "Sumanta", "familyName": "Barman", "email": "Sumanta.Barman@med.uni-duesseldorf.de"}, "additional_display": [{"name": "ABCD-J", "icon": "fa-solid fa-graduation-cap", "content": {"@context": {"homepage": "https://schema.org/mainEntityOfPage", "data controller": "https://w3id.org/dpv#hasDataController", "sample (organism)": "https://openminds.ebrains.eu/controlledTerms/Species", "sample (organism part)": "https://openminds.ebrains.eu/controlledTerms/CellType", "used for": "http://www.w3.org/ns/prov#hadUsage"}, "sample (organism)": {"@type": "https://openminds.ebrains.eu/controlledTerms/Species", "name": "Homo sapiens", "preferredOntologyIdentifier": "http://purl.obolibrary.org/obo/NCBITaxon_9606", "synonym": "human"}, "sample (organism part)": {"@type": "https://openminds.ebrains.eu/controlledTerms/CellType", "name": "Peripheral Blood Mononuclear Cell", "preferredOntologyIdentifier": "http://purl.obolibrary.org/obo/NCIT_C12954", "synonym": "PBMC"}, "data controller": {"@type": "https://schema.org/Person", "email": "Sumanta.Barman@med.uni-duesseldorf.de", "name": "Sumanta Barman"}, "used for": {"@type": "https://schema.org/Thing", "name": "Comprehensively characterize the longitudinal changes in peripheral blood T-cell repertoires pre- and post fingolimod treatment"}}}], "alias": "FTY720-MS-IR-bulk-Seq"}
+{
+    "type": "dataset",
+    "dataset_id": "5c792d7e-9fba-586e-a1a1-38ac0251ebea",
+    "dataset_version": "1.0",
+    "children": [
+        {
+            "type": "directory",
+            "name": "FTY_IR",
+            "path": "FTY_IR",
+            "dataset_id": "5c792d7e-9fba-586e-a1a1-38ac0251ebea",
+            "dataset_version": "1.0"
+        }
+    ],
+    "metadata_sources": {
+        "key_source_map": {
+            "name": [
+                "tabby"
+            ],
+            "description": [
+                "tabby"
+            ],
+            "authors": [
+                "tabby"
+            ],
+            "keywords": [
+                "tabby"
+            ],
+            "funding": [
+                "tabby"
+            ],
+            "access_request_contact": [
+                "tabby"
+            ],
+            "additional_display": [
+                "tabby"
+            ],
+            "alias": [
+                "automated_alias_entry"
+            ]
+        },
+        "sources": [
+            {
+                "source_name": "tabby",
+                "source_version": "0.1.0",
+                "source_parameter": {},
+                "source_time": 1716847086.688586,
+                "agent_name": "Stephan Heunis",
+                "agent_email": "s.heunis@fz-juelich.de"
+            },
+            {
+                "source_name": "automated_alias_entry",
+                "source_version": "0.1.0",
+                "source_parameter": {},
+                "source_time": 1716886792.988671,
+                "agent_name": "Stephan Heunis",
+                "agent_email": "s.heunis@fz-juelich.de"
+            }
+        ]
+    },
+    "name": "FTY720-Multiple Sclerosis (MS)-immune repertoire bulk-Seq dataset",
+    "description": "The dataset contains longitudinal bulk sequencing data of FACS sorted  T cells (CD3+CD4+, CD3+CD8+, CD3+CD4+CCR7+, CD3+CD4+CCR7-, CD3+CD8+CCR7+, CD3+CD8+CCR7-) from peripheral blood mononuclear cells (PBMCs) of 4 Multiple Sclerosis (MS) patients  treated with fingolimod (FTY720) compared to  2 untreated controls.  For treated patients TP1: Baseline; TP2: 6-12 months. For untreated controls TP1: m1; TP2: 6-12 months",
+    "authors": [
+        {
+            "name": "Sumanta Barman"
+        },
+        {
+            "name": "Armin Scheffler"
+        },
+        {
+            "name": "Anna Coordt"
+        },
+        {
+            "name": "Pia Sporkmann"
+        },
+        {
+            "name": "Sven G Meuth"
+        },
+        {
+            "name": "Norbert Goebels"
+        }
+    ],
+    "keywords": [
+        "Multiple Sclerosis",
+        "bulk sequencing",
+        "peripheral blood",
+        "fingolimod"
+    ],
+    "funding": [
+        {
+            "@type": "schema:Grant",
+            "name": "Novartis",
+            "identifier": "MFTY720_FVTK011"
+        }
+    ],
+    "access_request_contact": {
+        "givenName": "Sumanta",
+        "familyName": "Barman",
+        "email": "Sumanta.Barman@med.uni-duesseldorf.de"
+    },
+    "additional_display": [
+        {
+            "name": "ABCD-J",
+            "icon": "fa-solid fa-graduation-cap",
+            "content": {
+                "@context": {
+                    "homepage": "https://schema.org/mainEntityOfPage",
+                    "data controller": "https://w3id.org/dpv#hasDataController",
+                    "sample (organism)": "https://openminds.ebrains.eu/controlledTerms/Species",
+                    "sample (organism part)": "https://openminds.ebrains.eu/controlledTerms/CellType",
+                    "used for": "http://www.w3.org/ns/prov#hadUsage"
+                },
+                "sample (organism)": {
+                    "@type": "https://openminds.ebrains.eu/controlledTerms/Species",
+                    "name": "Homo sapiens",
+                    "preferredOntologyIdentifier": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
+                    "synonym": "human"
+                },
+                "sample (organism part)": {
+                    "@type": "https://openminds.ebrains.eu/controlledTerms/CellType",
+                    "name": "Peripheral Blood Mononuclear Cell",
+                    "preferredOntologyIdentifier": "http://purl.obolibrary.org/obo/NCIT_C12954",
+                    "synonym": "PBMC"
+                },
+                "data controller": {
+                    "@type": "https://schema.org/Person",
+                    "email": "Sumanta.Barman@med.uni-duesseldorf.de",
+                    "name": "Sumanta Barman"
+                },
+                "used for": {
+                    "@type": "https://schema.org/Thing",
+                    "name": "Comprehensively characterize the longitudinal changes in peripheral blood T-cell repertoires pre- and post fingolimod treatment"
+                }
+            }
+        }
+    ],
+    "alias": "FTY720-MS-IR-bulk-Seq"
+}
