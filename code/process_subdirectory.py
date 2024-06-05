@@ -25,6 +25,16 @@ if __name__ == "__main__":
     )
     parser.add_argument("--add-to-catalog", action="store_true")
     parser.add_argument("--hide-access-request", action="store_true")
+    parser.add_argument(
+        "--ignore-super",
+        action="store_true",
+        help="""If provided, do not try to add subdataset to superdataset tabby files,
+        and do not re-extract and re-add the superdataset metadata""")
+    parser.add_argument(
+        "--add-type", type=str, choices={"dataset", "file", "both"},
+        default="both",
+        help="Which metadata to extract from tabby files and add to catalog"
+    )
     
     args = parser.parse_args()
     ds = EnsureDataset(
@@ -64,7 +74,7 @@ if __name__ == "__main__":
         subdataset["url"] = subds_url
 
     # 3. Now add subdataset record to the superdataset tabby file at
-    #    '<superdataset>.datalad/tabby/self/subdatasets@tby-abcdjv0.tsv'
+    #    '<superdataset>/.datalad/tabby/self/subdatasets@tby-abcdjv0.tsv'
     # - First get the home page tabby record
     home_tabby_record = get_tabby_metadata(
         tabby_path=None,
@@ -91,7 +101,7 @@ if __name__ == "__main__":
     # - if subdatasets tabby file does not exist, create with single row
     fieldnames = ["dataset_type", "identifier", "version", "path_posix", "url"]
     subdatasets_tabby_path = Path(args.dataset_path) / f'.datalad/tabby/self/subdatasets@tby-abcdjv0.tsv'
-    if len(find_subdataset) == 0:
+    if len(find_subdataset) == 0 and not args.ignore_super:
         subdataset_added = True
         # If there's no tabby file, create one and add header and then row
         if not subdatasets_tabby_path.exists():
@@ -125,48 +135,62 @@ if __name__ == "__main__":
                     writer.writerow(r)
     else:
         subdataset_added = False   
-    # 4. Save the datalad superdataset after updating the tabby files
-    ds.save(
-        message=f"Adds new sub-directory ({args.subdir_path}) as a subdataset in tabby metadata",
-        to_git=True,
-    )
-    # 5. Get updated homepage metadata
+    # 4. Save the datalad superdataset:
+    # - if the subdataset was added after updating the tabby files
+    # - if the --ignore-super flag was not provided  
+    if subdataset_added and not args.ignore_super:
+        ds.save(
+            message=f"Adds new sub-directory ({args.subdir_path}) as a subdataset in tabby metadata",
+            to_git=True,
+        )
+    # 5. Get (possibly updated) homepage metadata
     home_core_record, home_tabby_records = get_super_metadata(ds)
-    # 6. Add all records to catalog (if specified via 'add_to_catalog' argument)
+    
+    # 6. Add all records to catalog:
+    # - if specified via 'add_to_catalog' argument
+    # - depending on the --add-type argument (dataset / files / both)
     if args.add_to_catalog:
         from datalad.api import  (
             catalog_add,
             catalog_set,
         )
         catalog_dir = repo_path / 'catalog'
-        # Add superdataset core metadata to the catalog
-        catalog_add(
-            catalog=catalog_dir,
-            metadata=json.dumps(home_core_record),
-            config_file = repo_path / 'inputs' / 'superds-config.json',
-        )
-        # Add superdataset tabby metadata to the catalog
-        for r in home_tabby_records:
+        if not args.ignore_super:
+            # Add superdataset core metadata to the catalog
             catalog_add(
                 catalog=catalog_dir,
-                metadata=json.dumps(r),
+                metadata=json.dumps(home_core_record),
                 config_file = repo_path / 'inputs' / 'superds-config.json',
             )
-        # Add subdataset tabby metadata to the catalog
+            # Add superdataset tabby metadata to the catalog
+            for r in home_tabby_records:
+                catalog_add(
+                    catalog=catalog_dir,
+                    metadata=json.dumps(r),
+                    config_file = repo_path / 'inputs' / 'superds-config.json',
+                )
+        # get correct config
         cfg_fname = 'subds-config.json'
         if args.hide_access_request:
             cfg_fname = 'subds-config-hide-access-request.json'
-        for r in subds_tabby_records:
+        # Add subdataset tabby metadata to the catalog, depending on --add-type
+        if args.add_type == 'both':
+            subds_records_to_add = subds_tabby_records
+        else:
+            subds_records_to_add = [r for r in subds_tabby_records if r["type"] == args.add_type]
+        for r in subds_records_to_add:
             catalog_add(
                 catalog=catalog_dir,
                 metadata=json.dumps(r),
                 config_file = repo_path / 'inputs' / cfg_fname,
             )
-        # 7. Set new catalog homepage (if specified via 'add_to_catalog' argument)
-        catalog_set(
-            catalog=catalog_dir,
-            property="home",
-            dataset_id=home_core_record["dataset_id"],
-            dataset_version=home_core_record["dataset_version"],
-            reckless="overwrite",
-        )
+
+        if not args.ignore_super:
+            # 7. Set new catalog homepage
+            catalog_set(
+                catalog=catalog_dir,
+                property="home",
+                dataset_id=home_core_record["dataset_id"],
+                dataset_version=home_core_record["dataset_version"],
+                reckless="overwrite",
+            )
