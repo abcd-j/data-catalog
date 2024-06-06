@@ -57,6 +57,9 @@
             ],
             "additional_display": [
                 "tabby"
+            ],
+            "alias": [
+                "automated_alias_entry"
             ]
         },
         "sources": [
@@ -65,6 +68,14 @@
                 "source_version": "0.1.0",
                 "source_parameter": {},
                 "source_time": 1717677094.362647,
+                "agent_name": "Stephan Heunis",
+                "agent_email": "s.heunis@fz-juelich.de"
+            },
+            {
+                "source_name": "automated_alias_entry",
+                "source_version": "0.1.0",
+                "source_parameter": {},
+                "source_time": 1717679586.304658,
                 "agent_name": "Stephan Heunis",
                 "agent_email": "s.heunis@fz-juelich.de"
             }
@@ -151,5 +162,6 @@
                 }
             }
         }
-    ]
+    ],
+    "alias": "TMS-DTI-ALS"
 }
