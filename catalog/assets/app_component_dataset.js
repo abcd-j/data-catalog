@@ -209,12 +209,14 @@ const datasetView = () =>
                   dataset.access_request_contact.familyName;
               }
               // Rendering options for dataset page
-              if (this.$root.hasOwnProperty("dataset_options") && this.$root.dataset_options.hasOwnProperty("include_metadata_export")) {
-                disp_dataset.show_export = this.$root.dataset_options.include_metadata_export
+              if (dataset.config?.hasOwnProperty("dataset_options") && dataset.config.dataset_options.hasOwnProperty("include_metadata_export")) {
+                disp_dataset.show_export = dataset.config.dataset_options.include_metadata_export
               }
               else {
                 disp_dataset.show_export = false
               }
+              console.debug("disp_dataset.show_export")
+              console.debug(disp_dataset.show_export)
               // Determine show/hide confirg for "Request access" button
               if (dataset.config?.hasOwnProperty("dataset_options") && dataset.config.dataset_options.hasOwnProperty("include_access_request")) {
                 disp_dataset.show_access_request = dataset.config.dataset_options.include_access_request
