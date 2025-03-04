@@ -1,3 +1,5 @@
+### **!** This repository has moved to https://hub.psychoinformatics.de/abcd-j/data-catalog **!**
+
 # The ABCDJ Catalog
 
 This repository (which is also a DataLad dataset) contains the sources and content for:
